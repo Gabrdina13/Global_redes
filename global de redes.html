@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen global</title>
+    <style>
+
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-sidebar: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+
+            --accent-dark-blue: #0f172a;
+            --accent-blue: #2563eb;
+            --accent-light-blue: #0284c7;
+            --accent-hover: #1d4ed8;
+            --accent-bg-light: #e0f2fe;
+            --accent-success: #16a34a;
+
+            --terminal-bg: #0f172a;
+            --terminal-text: #38bdf8;
+            --terminal-header: #1e293b;
+
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+            --transition-speed: 0.3s;
+        }
+
+        body.dark-theme {
+            --bg-primary: #0b1120;
+            --bg-secondary: #1e293b;
+            --bg-sidebar: #0f172a;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+
+            --accent-dark-blue: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-light-blue: #38bdf8;
+            --accent-hover: #60a5fa;
+            --accent-bg-light: #1e3a5f;
+            --accent-success: #22c55e;
+
+            --terminal-bg: #030712;
+            --terminal-text: #38bdf8;
+            --terminal-header: #111827;
+
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        .view-hidden {
+            display: none !important;
+        }
+
+        .view-active {
+            display: block;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .btn-large {
+            padding: 0.8rem 1.6rem;
+            font-size: 1.05rem;
+        }
+
+        /* PORTADA */
+        .hero-section {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-bg-light);
+            color: var(--accent-light-blue);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .units-section {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .unit-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-blue);
+        }
+
+        .unit-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .unit-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-light-blue);
+            text-transform: uppercase;
+        }
+
+        .unit-card-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+
+        .unit-card-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .unit-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .unit-topics-count {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* PLATAFORMA DEL CURSO */
+        .course-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--accent-light-blue);
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            padding: 0;
+            text-align: left;
+        }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+
+        .unit-group {
+            margin-bottom: 1rem;
+        }
+
+        .unit-group-title {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .topic-accordion-btn {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topic-accordion-btn:hover {
+            background-color: var(--accent-bg-light);
+        }
+
+        .subtopic-list {
+            list-style: none;
+            padding-left: 0.8rem;
+            display: none;
+            margin-top: 0.3rem;
+        }
+
+        .subtopic-list.open {
+            display: block;
+        }
+
+        .subtopic-item {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .subtopic-item:hover {
+            color: var(--accent-light-blue);
+            background-color: var(--bg-primary);
+        }
+
+        .subtopic-item.active {
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .content-area {
+            padding: 2.5rem;
+            max-width: 950px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--accent-light-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .topic-header {
+            margin-bottom: 2rem;
+        }
+
+        .topic-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-lead {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            color: var(--accent-light-blue);
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-section p {
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .terminal-card {
+            background-color: var(--terminal-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .terminal-header {
+            background-color: var(--terminal-header);
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background-color: #ef4444; }
+        .terminal-dot.yellow { background-color: #f59e0b; }
+        .terminal-dot.green { background-color: #10b981; }
+
+        .terminal-title {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-family: monospace;
+            margin-left: 0.5rem;
+        }
+
+        .terminal-body {
+            padding: 1.2rem;
+            overflow-x: auto;
+        }
+
+        .terminal-body code {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--terminal-text);
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .topic-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .nav-topic-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        @media (max-width: 992px) {
+            .course-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .topic-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-topic-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <main id="app-container">
+
+        <div id="home-view" class="view-active">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="badge"> Centro de Enseñanza Tecnica Industrial</div>
+                    <h1 class="hero-title">Redes III</h1>
+                    <p class="hero-description">
+                        <strong>Examen global</strong><br><br>
+                        <strong>Integrantes:</strong><br>
+                        Gabriel Alejandro Camacho Rodríguez — 26110128<br>
+                        Jose Emmanuel Cruz Juarez — 26110061<br><br>
+                        <strong>Ing. en Desarrollo de Software</strong> 
+                    </p>
+                    <div class="hero-buttons">
+                        <button id="btn-view-units" class="btn btn-outline btn-large"> Ver unidades</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="unidades-section" class="units-section">
+                <div class="section-header">
+                    <h2>Unidades</h2>
+                </div>
+                <div id="units-grid" class="units-grid"></div>
+            </section>
+        </div>
+
+        <div id="course-view" class="view-hidden">
+            <div class="course-layout">
+
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <button id="btn-back-home" class="btn-back">← Volver al inicio</button>
+                    </div>
+
+                    <nav id="course-tree" class="course-tree"></nav>
+                </aside>
+
+                <section class="content-area">
+
+                    <div id="breadcrumb" class="breadcrumb"></div>
+
+                    <div class="topic-header">
+                        <h1 id="topic-title">Cargando Tema...</h1>
+                        <p id="topic-description" class="topic-lead"></p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>Conceptos Clave</h3>
+                        <p id="topic-info"></p>
+                    </div>
+
+                    <div class="terminal-card">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">Cisco IOS CLI - Configuración y Comandos</span>
+                        </div>
+                        <pre class="terminal-body"><code id="topic-code"></code></pre>
+                    </div>
+
+                    <div class="topic-actions">
+                        <div class="nav-topic-buttons">
+                            <button id="btn-prev-topic" class="btn btn-outline">← Tema anterior</button>
+                            <button id="btn-next-topic" class="btn btn-primary">Siguiente tema →</button>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const courseData = [
+            {
+                id: "u1",
+                number: "UNIDAD 1",
+                title: "Escalamiento de Redes",
+                description: "Diseño jerárquico de redes, expansión y selección de hardware de switches y routers.",
+                topics: [
+                    {
+                        id: "1.1",
+                        title: "1.1 Implementación de un diseño de red",
+                        subtopics: [
+                            {
+                                id: "1.1.1",
+                                title: "1.1.1 Diseño jerárquico de la red",
+                                description: "El modelo de diseño jerárquico divide la red en capas independientes para facilitar su gestión y escalabilidad: Acceso, Distribución y Núcleo (Core).",
+                                info: "<strong>1.1.1.1 La necesidad de escalar la red:</strong> Las redes empresariales modernas deben adaptarse al constante incremento de tráfico multimodal, como la telefonía sobre IP (VoIP), las videoconferencias de alta definición y el acceso concurrente a datos críticos alojados en la nube. Diseñar una red escalable implica prever un crecimiento seguro en la densidad de usuarios y en el ancho de banda sin obligar a la empresa a reestructurar su topología base o sufrir interrupciones prolongadas del servicio.<br><br><strong>1.1.1.2 Switches empresariales:</strong> Un diseño escalable exige abandonar los equipos domésticos y migrar hacia switches de categoría empresarial que ofrecen alta disponibilidad y robustez. Estos conmutadores permiten aplicar Calidad de Servicio (QoS) para priorizar el tráfico sensible a demoras, integrar seguridad perimetral a nivel de puerto y facilitar la administración remota avanzada.<br><br><strong>1.1.1.3 Diseño jerárquico de la red:</strong> El enfoque estructurado de Cisco divide la arquitectura general en capas independientes para simplificar el diseño, facilitar el mantenimiento y acelerar la resolución de problemas (troubleshooting).<br><br><strong>1.1.1.4 Capas del modelo jerárquico:</strong><br>- <em>Capa de Acceso:</em> Proporciona el punto de conexión directo a los dispositivos finales de los usuarios (PCs, teléfonos IP, Access Points inalámbricos). Es aquí donde se aplican las políticas iniciales como la seguridad de puerto (Port Security), la asignación de VLANs y el suministro eléctrico mediante Power over Ethernet (PoE).<br>- <em>Capa de Distribución:</em> Actúa como un agregador de los enlaces provenientes de la capa de acceso. Es el límite lógico donde ocurre el enrutamiento inter-VLAN (Capa 3), se aplican las Listas de Control de Acceso (ACLs) y se filtra o resume el tráfico.<br>- <em>Capa de Núcleo (Core):</em> Es el backbone central de alta velocidad de la red. Su único propósito es conmutar y transportar paquetes lo más rápido posible entre los distintos sitios del campus o centros de datos.<br><br><strong>1.1.1.5 Núcleo colapsado (Collapsed Core):</strong> En sedes pequeñas o medianas, las funciones de la capa de Distribución y de Núcleo se fusionan en un solo par de switches multicapa de alto rendimiento para reducir costos y complejidad de cableado.<br><br><strong>1.1.1.6 Análisis de diseño de red:</strong> Fase de evaluación continua donde los ingenieros analizan los patrones de tráfico para detectar Puntos Únicos de Falla (SPOF) e ineficiencias antes de llegar a la saturación total.",
+                                code: "Switch-Acceso(config)# interface range FastEthernet 0/1 - 24\nSwitch-Acceso(config-if-range)# switchport mode access\nSwitch-Acceso(config-if-range)# switchport access vlan 10\nSwitch-Acceso(config-if-range)# spanning-tree portfast"
+                            },
+                            {
+                                id: "1.1.2",
+                                title: "1.1.2 Expansión de la red",
+                                description: "Estrategias para escalar la red incluyendo redundancia, dominios de falla acotados, agregación de enlaces y protocolos de routing dinámico.",
+                                info: "<strong>1.1.2.1 Diseño para escalabilidad:</strong> Requiere un direccionamiento IP jerárquico, consolidación de enlaces paralelos con EtherChannel y protocolos de enrutamiento dinámico como OSPF o EIGRP para rápida convergencia.<br><br><strong>1.1.2.2 Planificación de la redundancia:</strong> Instalación de enlaces cruzados y dispositivos duplicados para prevenir Puntos Únicos de Falla (SPOF), utilizando Spanning Tree Protocol (STP) para evitar bucles de Capa 2.<br><br><strong>1.1.2.3 Dominios de fallas:</strong> Porción de la red afectada cuando un dispositivo o enlace falla. Un diseño eficiente limita su tamaño aislando secciones mediante switches de Capa 3 o routers.<br><br><strong>1.1.2.4 Aumento del ancho de banda:</strong> Agregación de enlaces lógicos (EtherChannel) agrupando conexiones físicas para aumentar la capacidad sin reemplazar hardware.<br><br><strong>1.1.2.5 Expansión de la capa de acceso y ruteo:</strong> Soporte para densidad creciente de usuarios y puntos de acceso mediante routers modulares y direccionamiento estructurado.",
+                                code: "Router(config)# router ospf 1\nRouter(config-router)# network 192.168.10.0 0.0.0.255 area 0\nRouter(config-if)# description Enlace_Hacia_Core_Secundario\nRouter(config-if)# ip address 10.0.0.1 255.255.255.252\nRouter(config-if)# no shutdown"
+                            }
+                        ]
+                    },
+                    {
+                        id: "1.2",
+                        title: "1.2 Selección de dispositivos",
+                        subtopics: [
+                            {
+                                id: "1.2.1",
+                                title: "1.2.1 Hardware del switch",
+                                description: "Criterios para seleccionar hardware de conmutación considerando factores de forma, rendimiento, densidad de puertos y funciones adicionales.",
+                                info: "<strong>1.2.1.1 Factores de forma de los switches:</strong> Conmutadores de configuración fija, modulares (chasis extensible) y apilables (Stackable) para actuar como una sola entidad lógica.<br><br><strong>1.2.1.2 Rendimiento de los switches:</strong> Determinado por el Backplane interno para soportar transmisión simultánea en todos los puertos a máxima velocidad.<br><br><strong>1.2.1.3 Densidad de puertos:</strong> Número de puertos disponibles por Unidad de Rack (RU) para maximizar espacio físico en el armario de telecomunicaciones.<br><br><strong>1.2.1.4 Tasas de reenvío (Forwarding Rates):</strong> Capacidad expresada en millones de paquetes por segundo (Mpps) procesados por hardware (ASIC).<br><br><strong>1.2.1.5 Power over Ethernet (PoE / PoE+):</strong> Transmisión de corriente eléctrica a través del cable UTP para energizar teléfonos VoIP, cámaras y APs.<br><br><strong>1.2.1.6 Conmutación multicapa:</strong> Enrutamiento IP de Capa 3 procesado a velocidad de hardware por circuitos ASIC dedicados.<br><br><strong>1.2.1.7 Búferes de paquetes:</strong> Memorias temporales para retener tramas durante momentos de congestión súbita.",
+                                code: "Switch# show platform resources\nSwitch# show environment power\nSwitch# show switch stack-ports"
+                            },
+                            {
+                                id: "1.2.2",
+                                title: "1.2.2 Hardware de router",
+                                description: "El hardware de router se selecciona según requisitos de red, incorporando a menudo servicios integrados (ISR).",
+                                info: "<strong>1.2.2.1 Requisitos de los routers:</strong> Delimitan dominios de broadcast, interconectan VLANs y redes WAN, y aplican políticas de seguridad (Firewalls, NAT, VPNs).<br><br><strong>1.2.2.2 Arquitectura de memoria en Routers Cisco:</strong><br>- <em>RAM:</em> Aloja la tabla de enrutamiento (RIB), caché ARP y la configuración activa (`running-config`).<br>- <em>NVRAM:</em> Almacena la configuración de inicio (`startup-config`).<br>- <em>Flash:</em> Memoria permanente para la imagen del sistema operativo (Cisco IOS).<br>- <em>ROM:</em> Instrucciones de arranque (POST, Bootstrap, ROMMON).<br><br><strong>1.2.2.3 Interfaces modulares:</strong> Bahías para tarjetas expansivas HWIC/NIM (fibra, cobre, módems LTE).<br><br><strong>1.2.2.4 Routers de Servicios Integrados (ISR):</strong> Unifican ruteo, seguridad, telefonía IP y VPNs en un solo chasis.",
+                                code: "Router# show version\nRouter# show file systems"
+                            },
+                            {
+                                id: "1.2.3",
+                                title: "1.2.3 Administración de dispositivos",
+                                description: "Acceso seguro dentro y fuera de banda para la configuración y monitoreo de dispositivos Cisco.",
+                                info: "<strong>1.2.3.1 Administración de IOS y respaldos:</strong> Almacenamiento externo de imágenes IOS y archivos de configuración en servidores TFTP/FTP para rápida recuperación ante fallas de hardware.<br><br><strong>1.2.3.2 Recuperación de contraseñas:</strong> Procedimiento físico desde ROMMON cambiando el registro de configuración a `0x2142` para omitir la carga del archivo de inicio protegido.<br><br><strong>1.2.3.3 Configuración de SSH seguro:</strong> Sustitución obligatoria de Telnet por SSHv2 cifrado definiendo un dominio IP, generando claves RSA de al menos 2048 bits y restringiendo las líneas VTY.",
+                                code: "Router(config)# ip domain-name netacademy.com\nRouter(config)# crypto key generate rsa modulus 2048\nRouter(config)# line vty 0 15\nRouter(config-line)# login local\nRouter(config-line)# transport input ssh"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: "u2",
+                number: "UNIDAD 2",
+                title: "Redundancia de LAN",
+                description: "Protocolos de Árbol de Expansión (STP, PVST+, Rapid PVST+) y redundancia de primer salto (FHRP).",
+                topics: [
+                    {
+                        id: "2.1",
+                        title: "2.1 Conceptos de árbol de expansión",
+                        subtopics: [
+                            {
+                                id: "2.1.1",
+                                title: "2.1.1 Propósito de árbol de expansión",
+                                description: "El protocolo Spanning Tree (STP) previene de manera automática bucles físicos a nivel de Capa 2 causados por la redundancia de cableado.",
+                                info: "<strong>2.1.1.1 Redundancia en las capas 1 y 2:</strong> Instalación de enlaces físicos paralelos para garantizar alta disponibilidad y eliminar Puntos Únicos de Falla.<br><br><strong>2.1.1.2 Problemas de redundancia (Bucles de Capa 2):</strong> Las tramas Ethernet carecen de campo TTL (Tiempo de Vida), por lo que circulan indefinidamente en enlaces redundantes sin STP.<br><br><strong>2.1.1.3 Tormentas de broadcast:</strong> Inundación masiva de tramas de difusión que consumen el 100% del ancho de banda y la CPU de los equipos hasta paralizar la red.<br><br><strong>2.1.1.4 Inestabilidad de la tabla MAC:</strong> Reescribitura caótica y continua de la tabla CAM por la llegada simultánea de tramas idénticas desde múltiples puertos.<br><br><strong>2.1.1.5 Propósito del algoritmo Spanning Tree (STA):</strong> Bloquear lógicamente los puertos redundantes para formar una topología en árbol sin bucles, activándolos automáticamente si la vía principal falla.",
+                                code: "Switch# show spanning-tree summary\nSwitch# show spanning-tree vlan 1"
+                            },
+                            {
+                                id: "2.1.2",
+                                title: "2.1.2 Funcionamiento de STP",
+                                description: "El funcionamiento de STP está regido por el Algoritmo de Árbol de Expansión (STA) y el intercambio constante de mensajes BPDU.",
+                                info: "<strong>2.1.2.1 Algoritmo Spanning Tree y BPDUs:</strong> Intercambio de tramas de control de Capa 2 llamadas <em>Bridge Protocol Data Units</em> (BPDUs) cada 2 segundos.<br><br><strong>2.1.2.2 Elección del Puente Raíz (Root Bridge):</strong> El switch con el menor valor de Bridge ID (BID) de la red se proclama Root Bridge.<br><br><strong>2.1.2.3 Estructura del Bridge ID (BID):</strong> Compuesto por la Prioridad (32768 por defecto) + ID del sistema extendido (VLAN) + Dirección MAC del switch.<br><br><strong>2.1.2.4 Determinación de la ruta raíz con menor costo:</strong> Evaluación del ancho de banda acumulado desde cada switch hacia el Root Bridge según los costos estándar IEEE.<br><br><strong>2.1.2.5 Roles de los puertos:</strong><br>- <em>Puerto Raíz (Root Port):</em> Puerto en switches no-root que ofrece el camino de menor costo hacia el Root Bridge.<br>- <em>Puerto Designado (Designated Port):</em> Puerto autorizado para enviar tráfico en un segmento LAN.<br>- <em>Puerto No Designado / Bloqueado:</em> Puerto redundante colocado en estado de bloqueo para prevenir bucles.<br><br><strong>2.1.2.6 Estados de los puertos en 802.1D:</strong> Bloqueo (20s) -> Escucha (15s) -> Aprendizaje (15s) -> Reenvío (Forwarding). Total: 50 segundos.",
+                                code: "Switch# show spanning-tree"
+                            }
+                        ]
+                    },
+                    {
+                        id: "2.2",
+                        title: "2.2 Variedades de protocolos de árbol de expansión",
+                        subtopics: [
+                            {
+                                id: "2.2.1",
+                                title: "2.2.1 Descripción general",
+                                description: "Existen múltiples versiones de protocolos de árbol de expansión, evolucionando de estándares clásicos a rápidos y basados en VLAN.",
+                                info: "<strong>2.2.1.1 Variedades de STP:</strong><br>- <em>STP Clásico (802.1D):</em> Estándar original de lenta convergencia (hasta 50s).<br>- <em>PVST+ (Cisco):</em> Instancia independiente del árbol por cada VLAN existente.<br>- <em>RSTP (802.1w):</em> Reconvergencia ultra rápida mediante sincronización activa (Proposal/Agreement).<br>- <em>Rapid PVST+ (Cisco):</em> Implementa la velocidad de RSTP de forma independiente por cada VLAN.<br>- <em>MSTP (802.1s):</em> Agrupa múltiples VLANs en instancias comunes para ahorrar memoria y CPU.",
+                                code: "Switch(config)# spanning-tree mode ?"
+                            },
+                            {
+                                id: "2.2.2",
+                                title: "2.2.2 PVST+",
+                                description: "PVST+ (Per-VLAN Spanning Tree Plus) ejecuta instancias independientes del árbol para cada VLAN en la red.",
+                                info: "<strong>2.2.2.1 Operación de PVST+:</strong> Permite realizar balanceo de carga en Capa 2 configurando distintos switches como Root Bridge para diferentes VLANs.<br><br><strong>2.2.2.2 Balanceo de carga:</strong> Un puerto puede estar bloqueado para la VLAN 10 pero en estado de reenvío para la VLAN 20, aprovechando todos los enlaces físicos.<br><br><strong>2.2.2.3 Desventaja:</strong> Mantiene los lentos estados de puerto de 802.1D (50 segundos de convergencia ante fallas).",
+                                code: "Switch1(config)# spanning-tree vlan 10 root primary\nSwitch1(config)# spanning-tree vlan 20 root secondary"
+                            },
+                            {
+                                id: "2.2.3",
+                                title: "2.2.3 PVST+ rápido",
+                                description: "Rapid PVST+ acelera el cálculo y reanudación de los enlaces en la red combinando la especificación RSTP (802.1w) por cada VLAN.",
+                                info: "<strong>2.2.3.1 Concepto de RSTP:</strong> Reemplaza temporizadores fijos por un mecanismo de negociación directa (Proposal/Agreement) entre switches vecinos.<br><br><strong>2.2.3.2 Estados de puerto en RSTP:</strong> Simplificados a tres: <em>Descarte (Discarding)</em>, <em>Aprendizaje (Learning)</em> y <em>Reenvío (Forwarding)</em>.<br><br><strong>2.2.3.3 Roles de puerto adicionales:</strong> Incorpora el <em>Puerto Alternativo</em> (Alternate Port), que sirve como repuesto inmediato en caliente del Puerto Raíz.<br><br><strong>2.2.3.4 Puertos de borde (Edge Ports):</strong> Interfaces conectadas a hosts finales configuradas con <code>PortFast</code> para pasar inmediatamente a reenvío.",
+                                code: "Switch(config)# spanning-tree mode rapid-pvst\nSwitch# show spanning-tree vlan 10"
+                            }
+                        ]
+                    },
+                    {
+                        id: "2.3",
+                        title: "2.3 Configuración del árbol de expansión",
+                        subtopics: [
+                            {
+                                id: "2.3.1",
+                                title: "2.3.1 Configuración de PVST+",
+                                description: "Para configurar de forma segura PVST+, se debe establecer manualmente la prioridad de los puentes para forzar la elección del Root Bridge.",
+                                info: "<strong>2.3.1.1 Configurar el Puente Raíz:</strong> Es obligatorio definir explícitamente el Root Bridge en el switch central para evitar que un conmutador obsoleto de acceso asuma el control del tráfico corporativo.<br><br><strong>2.3.1.2 Modificación de prioridades:</strong> La prioridad se ajusta en decrementos de 4096 (ej: 0, 4096, 8192, 24576). Se pueden utilizar las macros <code>spanning-tree vlan [X] root primary</code> (prioridad 24576) y <code>root secondary</code> (prioridad 28672).",
+                                code: "Switch(config)# spanning-tree vlan 10 priority 4096\nSwitch(config)# spanning-tree vlan 10 root primary"
+                            },
+                            {
+                                id: "2.3.2",
+                                title: "2.3.2 Configuración rápida de PVST+",
+                                description: "La optimización de Rapid PVST+ en puertos de acceso finales (Edge Ports) requiere las funciones de seguridad PortFast y BPDU Guard.",
+                                info: "<strong>2.3.2.1 Configuración de PortFast:</strong> Elimina las demoras de 30 segundos en puertos conectados a PCs o servidores, permitiendo que obtengan dirección IP por DHCP sin interrupciones.<br><br><strong>2.3.2.2 Protección con BPDU Guard:</strong> Apaga automáticamente en estado <code>err-disable</code> cualquier puerto con PortFast si detecta la llegada de una BPDU intrusa, previniendo bucles por la conexión no autorizada de switches.",
+                                code: "Switch(config)# interface range FastEthernet 0/1 - 24\nSwitch(config-if-range)# switchport mode access\nSwitch(config-if-range)# spanning-tree portfast\nSwitch(config-if-range)# spanning-tree bpduguard enable"
+                            },
+                            {
+                                id: "2.3.3",
+                                title: "2.3.3 Problemas de configuración de STP",
+                                description: "Diagnóstico y solución de problemas comunes de Spanning Tree, bucles persistentes o puertos deshabilitados erróneamente.",
+                                info: "<strong>2.3.3.1 Análisis de bucles L2:</strong> Causados frecuentemente por discrepancias de dúplex (Duplex Mismatch) o fallas de transmisión en hilos de fibra óptica (solucionado mediante el protocolo UDLD).<br><br><strong>2.3.3.2 Recuperación del estado Err-Disabled:</strong> Un puerto se desactiva al detectar violaciones de seguridad o BPDUs no autorizadas. Para restablecerlo manualmente, se deben ejecutar secuencialmente los comandos <code>shutdown</code> y <code>no shutdown</code>. Para automatizar la recuperación, se utiliza el comando global <code>errdisable recovery cause bpduguard</code> junto con <code>errdisable recovery interval [segundos]</code>.",
+                                code: "Switch# show spanning-tree inconsistentports\nSwitch(config)# errdisable recovery cause bpduguard\nSwitch(config)# errdisable recovery interval 30"
+                            },
+                            {
+                                id: "2.3.4",
+                                title: "2.3.4 Mantenimiento de STP",
+                                description: "Monitoreo y administración continuos para garantizar el desempeño óptimo de la topología.",
+                                info: "<strong>2.3.4.1 Notificaciones de Cambio de Topología (TCN):</strong> En 802.1D, cada cambio de enlace hace que el Root Bridge ordene reducir el tiempo de la tabla MAC de 300s a 15s, causando purgas e inundaciones temporales.<br><br><strong>2.3.4.2 Implementación Global de PortFast:</strong> El comando <code>spanning-tree portfast default</code> aplica PortFast a todos los puertos de acceso de forma masiva para evitar la emisión de TCNs innecesarias durante el arranque de computadoras de usuarios.",
+                                code: "Switch(config)# spanning-tree portfast default\nSwitch# show spanning-tree detail | include changes"
+                            }
+                        ]
+                    },
+                    {
+                        id: "2.4",
+                        title: "2.4 Protocolos de redundancia de primer salto",
+                        subtopics: [
+                            {
+                                id: "2.4.1",
+                                title: "2.4.1 Conceptos de FHRP",
+                                description: "Los Protocolos de Redundancia de Primer Salto (FHRP) otorgan un Gateway (puerta de enlace) predeterminado infalible a los equipos finales.",
+                                info: "<strong>2.4.1.1 Limitaciones del Gateway Único:</strong> Un solo router de salida representa un Punto Único de Falla (SPOF); si la interfaz o la fuente mueren, la LAN queda incomunicada.<br><br><strong>2.4.1.2 Concepto del Router Virtual (Grupo FHRP):</strong> FHRP agrupa dos o más routers físicos bajo una sola <strong>IP Virtual</strong> y <strong>MAC Virtual</strong> compartidas.<br><br><strong>2.4.1.3 Conmutación por falla transparente (Failover L3):</strong> Un router asume el rol Activo y procesa el tráfico. Si este falla, el router Standby asume automáticamente la IP y MAC Virtuales sin interrumpir las sesiones activas de los usuarios.",
+                                code: "PC> ipconfig\n Puerta de enlace predeterminada . . . . : 192.168.1.1"
+                            },
+                            {
+                                id: "2.4.2",
+                                title: "2.4.2 Variedades de FHRP",
+                                description: "Variedades principales de FHRP en el mercado.",
+                                info: "<strong>2.4.2.1 Hot Standby Router Protocol (HSRP):</strong> Protocolo propietario de Cisco que designa un router <em>Active</em> y otro <em>Standby</em>. Utiliza direcciones MAC virtuales con formato <code>0000.0c07.acXX</code>.<br><br><strong>2.4.2.2 Virtual Router Redundancy Protocol (VRRP):</strong> Estándar abierto no propietario (RFC 5798). Nombra un router <em>Master</em> y uno o más routers <em>Backup</em>.<br><br><strong>2.4.2.3 Gateway Load Balancing Protocol (GLBP):</strong> Protocolo propietario de Cisco que permite balanceo de carga activo entre routers mediante un <em>Active Virtual Gateway (AVG)</em> y múltiples <em>Active Virtual Forwarders (AVF)</em>.",
+                                code: "Router-1(config-if)# standby 1 ip 192.168.10.1\nRouter-1(config-if)# standby 1 priority 150\nRouter-1(config-if)# standby 1 preempt"
+                            },
+                            {
+                                id: "2.4.3",
+                                title: "2.4.3 Verificación de FHRP",
+                                description: "Comprobación y auditoría del correcto funcionamiento del protocolo HSRP/VRRP.",
+                                info: "<strong>2.4.3.1 Prioridad y Preemisión en HSRP:</strong> El router con mayor prioridad (100 por defecto) se convierte en Activo. El comando <code>standby preempt</code> obliga al router primario a retomar su rol activo tras recuperarse de una falla.<br><br><strong>2.4.3.2 Tracking de interfaces:</strong> Disminuye la prioridad de HSRP de forma automática si la interfaz WAN de salida cae, permitiendo que el Standby tome el control.<br><br><strong>2.4.3.3 Comandos de Verificación:</strong> El comando central de auditoría es <code>show standby brief</code>.",
+                                code: "Router# show standby brief"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: "u3",
+                number: "UNIDAD 3",
+                title: "Agregación de enlaces",
+                description: "Agregación de puertos mediante EtherChannel utilizando protocolos PAgP y LACP.",
+                topics: [
+                    {
+                        id: "3.1",
+                        title: "3.1 Conceptos del agregado de enlace",
+                        subtopics: [
+                            {
+                                id: "3.1.1",
+                                title: "3.1.1 Agregación de enlaces",
+                                description: "La agregación consolida múltiples cables físicos en un único enlace lógico de altísima capacidad.",
+                                info: "<strong>3.1.1.1 Concepto de EtherChannel:</strong> Permite agrupar hasta 8 enlaces Ethernet físicos en un solo canal lógico denominado <em>Port-Channel</em>.<br><br><strong>3.1.1.2 Ventajas de EtherChannel:</strong> Multiplica el ancho de banda disponible, distribuye el tráfico y provee tolerancia a fallas. Spanning Tree trata al grupo como un solo puerto lógico evitando bloqueos.<br><br><strong>3.1.1.3 Requisitos de Configuración:</strong> Todos los puertos del grupo deben compartir la misma velocidad, dúplex, asignación de VLAN y listas troncales.",
+                                code: "Switch# show spanning-tree vlan 1"
+                            },
+                            {
+                                id: "3.1.2",
+                                title: "3.1.2 Funcionamiento de EtherChannel",
+                                description: "Mecanismo dinámico de funcionamiento de EtherChannel operado por los protocolos de negociación PAgP y LACP.",
+                                info: "<strong>3.1.2.1 Protocolo PAgP (Port Aggregation Protocol):</strong> Protocolo propietario de Cisco para la negociación dinámica de EtherChannels.<br><br><strong>3.1.2.2 Modos de PAgP:</strong> <em>On</em> (forzado), <em>Desirable</em> (inicia negociación) y <em>Auto</em> (espera solicitud).<br><br><strong>3.1.2.3 Protocolo LACP (Link Aggregation Control Protocol - IEEE 802.3ad):</strong> Estándar abierto multi-vendor para agregar enlaces con equipos no Cisco.<br><br><strong>3.1.2.4 Modos de LACP:</strong> <em>On</em> (forzado), <em>Active</em> (inicia negociación) y <em>Passive</em> (espera solicitud).<br><br><strong>3.1.2.5 Reglas de compatibilidad:</strong> Al menos un extremo debe estar configurado en modo activo (Desirable o Active) para formar el grupo.",
+                                code: "SwitchA(config-if-range)# channel-group 1 mode active\nSwitchB(config-if-range)# channel-group 1 mode passive"
+                            }
+                        ]
+                    },
+                    {
+                        id: "3.2",
+                        title: "3.2 Configuración del agregado de enlaces",
+                        subtopics: [
+                            {
+                                id: "3.2.1",
+                                title: "3.2.1 Configuración de EtherChannel",
+                                description: "Directrices estrictas y comandos requeridos en CLI para la configuración robusta de un enlace lógico EtherChannel.",
+                                info: "<strong>3.2.1.1 Consistencia de Parámetros:</strong> Cualquier diferencia en velocidad, dúplex o VLANs entre los puertos impedirá la formación del canal.<br><br><strong>3.2.1.2 La Interfaz Port-Channel:</strong> Se genera automáticamente con <code>channel-group [X] mode [modo]</code>. Las configuraciones subsecuentes deben aplicarse en <code>interface port-channel [X]</code>.",
+                                code: "Switch(config)# interface range GigabitEthernet 0/1 - 2\nSwitch(config-if-range)# channel-group 5 mode active\nSwitch(config)# interface port-channel 5\nSwitch(config-if)# switchport mode trunk"
+                            },
+                            {
+                                id: "3.2.2",
+                                title: "3.2.2 Verificación y resolución de problemas",
+                                description: "Técnicas avanzadas de verificación y resolución de discordancias en parámetros que impiden el levantamiento del EtherChannel.",
+                                info: "<strong>3.2.2.1 Diagnóstico con show etherchannel summary:</strong> Muestra los puertos miembros y su estado (ej: <em>SU</em> = Port-Channel Capa 2 en uso operacional; <em>SD</em> = puerto suspendido o caído).<br><br><strong>3.2.2.2 Resolución de discordancias:</strong> Si un puerto aparece marcado como suspendido (s) o independiente (I), se debe verificar la paridad de VLANs y velocidad con el extremo opuesto.",
+                                code: "Switch# show etherchannel summary\nSwitch# show interfaces port-channel 1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: "u4",
+                number: "UNIDAD 4",
+                title: "LAN inalámbricas",
+                description: "Tecnologías WLAN, topologías 802.11, operaciones, canales, seguridad y configuración.",
+                topics: [
+                    {
+                        id: "4.1",
+                        title: "4.1 Conceptos de tecnología inalámbrica",
+                        subtopics: [
+                            {
+                                id: "4.1.1",
+                                title: "4.1.1 Introducción a la tecnología inalámbrica",
+                                description: "Las redes LAN inalámbricas (WLAN) dictan la comunicación usando frecuencias de radio.",
+                                info: "<strong>4.1.1.1 Ventajas corporativas de WLAN:</strong> Ofrece movilidad a los usuarios, simplifica la expansión de la red y admite políticas BYOD.<br><br><strong>4.1.1.2 Estándares IEEE 802.11:</strong> Evolución desde 802.11b/g hasta 802.11n (Wi-Fi 4), 802.11ac (Wi-Fi 5) y 802.11ax (Wi-Fi 6 / 6E).<br><br><strong>4.1.1.3 Radiofrecuencias (Bandas ISM):</strong> La banda de 2.4 GHz ofrece mayor alcance pero alta saturación. La banda de 5 GHz ofrece mayor ancho de banda y canales sin solapamiento.<br><br><strong>4.1.1.4 Wi-Fi Alliance:</strong> Organización global que certifica la interoperabilidad entre fabricantes de equipos inalámbricos.",
+                                code: "WLAN-Router(config-wireless)# channel-width 80MHz"
+                            },
+                            {
+                                id: "4.1.2",
+                                title: "4.1.2 Componentes de WLANs",
+                                description: "Identificación y despliegue de los componentes centrales de la arquitectura inalámbrica.",
+                                info: "<strong>4.1.2.1 NICs e infraestructura PoE:</strong> Adaptadores Wi-Fi y Access Points alimentados por switches mediante PoE (802.3af/at).<br><br><strong>4.1.2.2 Routers SOHO:</strong> Equipos integrados para hogares que agrupan funciones de AP, switch, router y firewall NAT.<br><br><strong>4.1.2.3 APs Autónomos (Fat APs):</strong> Dispositivos independientes que gestionan toda la configuración de forma local.<br><br><strong>4.1.2.4 APs Ligeros (LAPs) y Controladores WLC:</strong> Arquitectura centralizada Split-MAC donde los APs son administrados dinámicamente por un controlador WLC a través de túneles CAPWAP.<br><br><strong>4.1.2.5 Antenas:</strong> Omnidireccionales (360° de cobertura) y Direccionales (Yagi/Parabólicas para enlaces punto a punto).",
+                                code: "WLC# show ap summary"
+                            },
+                            {
+                                id: "4.1.3",
+                                title: "4.1.3 Topologías de WLAN 802.11",
+                                description: "Las tres disposiciones lógicas que determinan las redes 802.11.",
+                                info: "<strong>4.1.3.1 Modo Ad-Hoc / IBSS:</strong> Conexión inalámbrica directa punto a punto entre clientes sin un Access Point.<br><br><strong>4.1.3.2 Modo BSS (Basic Service Set):</strong> Cobertura otorgada por un único Access Point (BSSID equivalente a la dirección MAC del radio).<br><br><strong>4.1.3.3 Modo ESS (Extended Service Set):</strong> Unión de múltiples BSS interconectados por switches que comparten el mismo SSID para permitir itinerancia (Roaming) sin desconexiones.",
+                                code: "WLC# show wlan summary"
+                            }
+                        ]
+                    },
+                    {
+                        id: "4.2",
+                        title: "4.2 Operaciones de LAN inalámbrica",
+                        subtopics: [
+                            {
+                                id: "4.2.1",
+                                title: "4.2.1 Estructura de tramas 802.11",
+                                description: "Las tramas WLAN son complejas y estructuradas para controlar de forma exhaustiva los tiempos del aire.",
+                                info: "<strong>4.2.1.1 Formato de tramas 802.11:</strong> Incorpora hasta 4 campos de direcciones MAC para indicar emisor, receptor, origen y destino final.<br><br><strong>4.2.1.2 Tramas de Administración:</strong> Beacons (anuncios periódicos del SSID), Probe Requests/Responses, Autenticación y Asociación.<br><br><strong>4.2.1.3 Tramas de Control:</strong> Coordinan el uso del medio compartido (RTS, CTS, ACK).<br><br><strong>4.2.1.4 Tramas de Datos:</strong> Transportan la carga útil (Payload IP) de los usuarios.",
+                                code: "WLC# show client summary"
+                            },
+                            {
+                                id: "4.2.2",
+                                title: "4.2.2 Operación inalámbrica y acceso al medio",
+                                description: "Las redes inalámbricas utilizan estrictamente el método de acceso múltiple con evasión de colisiones (CSMA/CA).",
+                                info: "<strong>4.2.2.1 Método CSMA/CA:</strong> Las antenas no pueden detectar colisiones mientras transmiten; por ello verifican el medio y evitan colisiones de forma preventiva.<br><br><strong>4.2.2.2 Reserva RTS/CTS y NAV:</strong> El cliente envía un RTS, el AP concede el turno con un CTS y los demás hosts pausan sus transmisiones mediante un temporizador NAV.<br><br><strong>4.2.2.3 Confirmación ACK:</strong> Toda trama recibida correctamente requiere un acuse de recibo ACK obligatorio; en su ausencia, el cliente asume colisión y retransmite.<br><br><strong>4.2.2.4 Proceso de Asociación:</strong> Descubrimiento (Probes/Beacons) -> Autenticación -> Solicitud y Confirmación de Asociación al BSSID.",
+                                code: "WLAN-Router(config-wireless)# rts-threshold 2346"
+                            },
+                            {
+                                id: "4.2.3",
+                                title: "4.2.3 Administración experta de canales",
+                                description: "Administración efectiva de frecuencias para prevenir interferencia y solapamiento.",
+                                info: "<strong>4.2.3.1 Modulación OFDM:</strong> Divide el canal de radiofrecuencia en múltiples subportadoras para mayor resistencia a la interferencia.<br><br><strong>4.2.3.2 Distribución de canales en 2.4 GHz:</strong> Dispone de 11 a 13 canales. Para evitar solapamiento e interferencia co-canal en APs contiguos, se deben usar exclusivamente los canales <strong>1, 6 y 11</strong>.<br><br><strong>4.2.3.3 Banda de 5 GHz y Channel Bonding:</strong> Ofrece decenas de canales libres. Permite unir canales contiguos (20, 40, 80 o 160 MHz) para alcanzar velocidades Gigabits.",
+                                code: "Router-WLAN(config-wireless)# radio 2.4ghz channel 6\nRouter-WLAN(config-wireless)# channel-width 20MHz"
+                            }
+                        ]
+                    },
+                    {
+                        id: "4.3",
+                        title: "4.3 Seguridad de una LAN inalámbrica",
+                        subtopics: [
+                            {
+                                id: "4.3.1",
+                                title: "4.3.1 Amenazas en infraestructuras WLAN",
+                                description: "El aire está expuesto físicamente a todo el entorno, posibilitando amenazas agresivas.",
+                                info: "<strong>4.3.1.1 Amenazas de RF:</strong> Interceptación de datos (Sniffing), ataques de denegación de servicio (DoS) con inhibidores (Jammers) o ráfagas de desautenticación.<br><br><strong>4.3.1.2 Rogue AP (AP Pirata):</strong> Punto de acceso no autorizado conectado internamente por un empleado, evadiendo la seguridad perimetral.<br><br><strong>4.3.1.3 Evil Twin (Gemelo Malvado):</strong> AP fraudulento configurado por un atacante con el mismo SSID corporativo para capturar contraseñas mediante un ataque Man-in-the-Middle.",
+                                code: "WLC# show wps rogue ap summary"
+                            },
+                            {
+                                id: "4.3.2",
+                                title: "4.3.2 Protección de última generación",
+                                description: "Establecimiento de protocolos de validación y cifrado para asegurar los datos aéreos.",
+                                info: "<strong>4.3.2.1 Seguridad obsoleta:</strong> Ocultar el SSID o aplicar filtrado MAC no ofrece seguridad real frente a atacantes con analizadores de paquetes.<br><br><strong>4.3.2.2 Cifrado WPA2 y WPA3:</strong> WPA2 implementa encriptación AES. WPA3 introduce el protocolo SAE contra ataques de fuerza bruta offline.<br><br><strong>4.3.2.3 Autenticación Personal vs Enterprise:</strong> WPA Personal utiliza una clave precompartida (PSK). WPA Enterprise aplica autenticación individualizada mediante el estándar 802.1X y un servidor RADIUS.",
+                                code: "Router(config-wlan)# security wpa wpa2 ciphers aes\nRouter(config-wlan)# security wpa akm 802.1x\nRouter(config-wlan)# radius-server host 192.168.10.100 key SharedSecret"
+                            }
+                        ]
+                    },
+                    {
+                        id: "4.4",
+                        title: "4.4 Configuración, gestión y resolución de WLAN",
+                        subtopics: [
+                            {
+                                id: "4.4.1",
+                                title: "4.4.1 Configuración de router inalámbrico",
+                                description: "Parámetros iniciales de un router autónomo SOHO (Small Office).",
+                                info: "<strong>4.4.1.1 Acceso Inicial:</strong> Ingreso mediante navegador web a la IP por defecto para acceder a la GUI de administración.<br><br><strong>4.4.1.2 Configuración Básica:</strong> Cambio de contraseñas de administrador por defecto y habilitación del servidor DHCP interno.<br><br><strong>4.4.1.3 Parámetros de Radio:</strong> Definición del nombre de la red (SSID) y selección de canales no solapados (1, 6 u 11).<br><br><strong>4.4.1.4 Configuración WPA:</strong> Selección de cifrado WPA2/WPA3 Personal con encriptación AES y definición de una contraseña segura.",
+                                code: "Router(config)# wlan EMPRESA_WIFI 1 SSID_NUCLEO\nRouter(config-wlan)# security wpa psk set-key ascii Password_Fuerte2026\nRouter(config-wlan)# no shutdown"
+                            },
+                            {
+                                id: "4.4.2",
+                                title: "4.4.2 Ajustes de clientes inalámbricos",
+                                description: "Emparejamientos de perfiles en sistemas operativos clientes.",
+                                info: "<strong>4.4.2.1 Perfiles de red:</strong> Creación de perfiles Wi-Fi en el sistema operativo cliente almacenando el SSID, encriptación y claves.<br><br><strong>4.4.2.2 Certificados digitales:</strong> En redes WPA Enterprise, se requiere importar un certificado digital para validar la identidad del servidor RADIUS.",
+                                code: "C:\\> netsh wlan show interfaces\nC:\\> netsh wlan connect name=\"Perfil_EMPRESA\""
+                            },
+                            {
+                                id: "4.4.3",
+                                title: "4.4.3 Resolución metódica de problemas WLAN",
+                                description: "Diagnóstico causal desde la etapa 1 física hasta fallos de enrutamiento y DHCP.",
+                                info: "<strong>4.4.3.1 Enfoque metódico:</strong> Diagnóstico estructurado por capas del modelo OSI.<br><br><strong>4.4.3.2 Verificación Capa 1 y RF:</strong> Comprobación de niveles de señal en dBm (-65 dBm es excelente; menor a -85 dBm causa desconexión) e identificación de interferencias.<br><br><strong>4.4.3.3 Verificación Capa 2:</strong> Validación de coincidencias exactas en SSID, tipo de cifrado y contraseñas.<br><br><strong>4.4.3.4 Verificación Capa 3 e IP:</strong> Diagnóstico del servicio DHCP. Si el cliente recibe una IP de rango APIPA (`169.254.X.X`), indica agotamiento o falla del servidor DHCP.",
+                                code: "Router# debug ip dhcp server packet\nRouter# show dot11 associations"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: "u5",
+                number: "UNIDAD 5",
+                title: "OSPF multiárea",
+                description: "Operación de OSPF en áreas múltiples, tipos de LSAs, tablas de enrutamiento y resumen de rutas.",
+                topics: [
+                    {
+                        id: "5.1",
+                        title: "5.1 Funcionamiento de OSPF multiárea",
+                        subtopics: [
+                            {
+                                id: "5.1.1",
+                                title: "5.1.1 Funcionamiento y LSAs de OSPF",
+                                description: "Uso del diseño jerárquico geográfico (Áreas) y despliegue de LSAs (Link-State Advertisements).",
+                                info: "<strong>5.1.1.1 Necesidad de OSPF Multiárea:</strong> En redes OSPF masivas de una sola área, la base de datos LSDB se vuelve gigante y cualquier cambio obliga a todos los routers a recalcular el algoritmo SPF. Dividir la red en múltiples áreas confina los recálculos SPF exclusivamente a su área correspondiente.<br><br><strong>5.1.1.2 Diseño jerárquico de dos niveles:</strong> Requiere una columna vertebral obligatoria llamada **Área 0 (Backbone)**. Todas las demás **Áreas Normales** (ej. Área 10, 20) deben conectarse al Área 0 para intercambiar rutas.<br><br><strong>5.1.1.3 Roles de Routers OSPF:</strong><br>- <em>Router Interno:</em> Todas sus interfaces están en una misma área normal.<br>- <em>Router de Backbone:</em> Tiene interfaces conectadas en el Área 0.<br>- <em>ABR (Area Border Router):</em> Router fronterizo con conexiones en el Área 0 y en áreas normales.<br>- <em>ASBR (Autonomous System Boundary Router):</em> Router de borde que conecta OSPF con redes externas (ej. BGP o rutas estáticas a Internet).",
+                                code: "Router# show ip ospf database"
+                            },
+                            {
+                                id: "5.1.2",
+                                title: "5.1.2 Tipos de LSA de OSPF",
+                                description: "Bloques de construcción de la base de datos de estado de enlace (LSDB).",
+                                info: "<strong>5.1.2.1 Concepto de LSA:</strong> Paquetes de estado de enlace que informan la topología.<br><br><strong>5.1.2.2 LSA Tipo 1 (Router):</strong> Generado por cada router para describir sus enlaces directos. No abandona su área original.<br><br><strong>5.1.2.3 LSA Tipo 2 (Red):</strong> Generado por el Router Designado (DR) en redes de multiacceso Ethernet para listar los routers del segmento.<br><br><strong>5.1.2.4 LSA Tipo 3 (Resumen):</strong> Creado por un ABR para anunciar subredes comprimidas desde un área hacia el Área 0.<br><br><strong>5.1.2.5 LSA Tipo 4 (Resumen ASBR):</strong> Generado por el ABR para anunciar la ubicación del router ASBR.<br><br><strong>5.1.2.6 LSA Tipo 5 (Externa):</strong> Generado por el ASBR para anunciar rutas redistribuidas externas hacia Internet.",
+                                code: "Router# show ip ospf database"
+                            },
+                            {
+                                id: "5.1.3",
+                                title: "5.1.3 Tabla de routing OSPF y tipos de rutas",
+                                description: "Estructura minuciosa y priorización estricta por tipos en la tabla general matemática de IP (RIB).",
+                                info: "<strong>5.1.3.1 Jerarquía de Rutas en OSPF:</strong> OSPF clasifica y prioriza las rutas aprendidas en 4 niveles:<br>- <em>Rutas Intraárea (O):</em> Máxima prioridad. Vías generadas dentro de la misma área local.<br>- <em>Rutas Interárea (O IA):</em> Rutas aprendidas transitivamente desde otras áreas mediante un ABR.<br>- <em>Rutas Externas Tipo 1 (O E1):</em> La métrica calcula el costo externo sumado al costo interno hasta el ASBR.<br>- <em>Rutas Externas Tipo 2 (O E2):</em> Muestra exclusivamente el costo externo comunicado por el ASBR (Opción por defecto).",
+                                code: "Router# show ip route ospf"
+                            }
+                        ]
+                    },
+                    {
+                        id: "5.2",
+                        title: "5.2 Configuración y mantenimiento robusto en OSPF multiárea",
+                        subtopics: [
+                            {
+                                id: "5.2.1",
+                                title: "5.2.1 Configuración de OSPF de diversas áreas",
+                                description: "Asignación de adyacencias jerárquicas vinculadas con interfaces y wildcards.",
+                                info: "<strong>5.2.1.1 Configuración de OSPF Multiárea:</strong> Se habilita el proceso con <code>router ospf [process-id]</code> y se asigna un <code>router-id [A.B.C.D]</code> único.<br><br><strong>5.2.1.2 Declaración de subredes y áreas:</strong> En un ABR se configuran las interfaces conectadas al núcleo usando <code>network [IP] [Wildcard] area 0</code> y las subredes de clientes en sus áreas correspondientes (ej. <code>area 1</code>).",
+                                code: "Router-ABR(config)# router ospf 10\nRouter-ABR(config-router)# router-id 2.2.2.2\nRouter-ABR(config-router)# network 10.1.1.0 0.0.0.255 area 0\nRouter-ABR(config-router)# network 192.168.1.0 0.0.0.255 area 1"
+                            },
+                            {
+                                id: "5.2.2",
+                                title: "5.2.2 Resumen de rutas convergente OSPF",
+                                description: "Proceso logístico de consolidar masivas diseminaciones en superbloques contiguos.",
+                                info: "<strong>5.2.2.1 Resumen de rutas:</strong> Consolida múltiples subredes contiguas en un solo anuncio maestro para reducir el tamaño de las tablas de enrutamiento.<br><br><strong>5.2.2.2 Configuración en ABR:</strong> Se ejecuta en el ABR mediante la orden <code>area [id] range [IP] [máscara]</code>. Esto absorbe los parpadeos (flapping) de enlaces locales sin afectar al resto de la red corporativa.",
+                                code: "Router-ABR(config)# router ospf 10\nRouter-ABR(config-router)# area 1 range 192.168.0.0 255.255.0.0"
+                            },
+                            {
+                                id: "5.2.3",
+                                title: "5.2.3 Verificación profunda de OSPF en diversas áreas",
+                                description: "Auditoría en CLI para diagnosticar convergencia y purgar disfunciones de vecindad.",
+                                info: "<strong>5.2.3.1 Verificación de OSPF Multiárea:</strong> Auditoría del proceso mediante comandos clave CLI.<br><br><strong>5.2.3.2 Comandos de Verificación:</strong><br>- <code>show ip protocols</code>: Revisa IDs, áreas e interfaces participando en OSPF.<br>- <code>show ip route ospf</code>: Muestra las rutas activas (O, O IA, O E2).<br>- <code>show ip ospf database</code>: Muestra los LSAs en la memoria LSDB.<br>- <code>show ip ospf neighbor</code>: Valida las adyacencias. El estado victorioso debe ser **FULL**.",
+                                code: "Router# show ip ospf neighbor\nRouter# show ip protocols\nRouter# show ip route ospf"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: "u6",
+                number: "UNIDAD 6",
+                title: "EIGRP",
+                description: "Características de EIGRP, vector de distancias avanzado, métricas, algoritmo DUAL y configuración IPv4/IPv6.",
+                topics: [
+                    {
+                        id: "6.1",
+                        title: "6.1 Características de EIGRP",
+                        subtopics: [
+                            {
+                                id: "6.1.1",
+                                title: "6.1.1 Funciones básicas de EIGRP",
+                                description: "EIGRP es el pináculo de diseño del enrutamiento de Vector de Distancia con tintes de Estado de Enlace.",
+                                info: "<strong>6.1.1.1 Características de EIGRP:</strong> Protocolo de vector de distancia avanzado desarrollado por Cisco. Utiliza el algoritmo DUAL para asegurar una convergencia ultra rápida en milisegundos y garantiza rutas libres de bucles.<br><br><strong>6.1.1.2 Módulos Dependientes del Protocolo (PDM):</strong> Permite soportar IPv4 e IPv6 de manera simultánea en procesos independientes.<br><br><strong>6.1.1.3 Protocolo de Transporte Confiable (RTP):</strong> Operando sobre IP protocolo 88, administra la entrega garantizada de paquetes EIGRP mediante acuses de recibo (ACK).<br><br><strong>6.1.1.4 Autenticación:</strong> Soporta cifrado MD5 o SHA para autenticar vecinos antes de intercambiar actualizaciones de enrutamiento.",
+                                code: "Router# show ip protocols"
+                            },
+                            {
+                                id: "6.1.2",
+                                title: "6.1.2 Tipos de paquetes EIGRP",
+                                description: "Notificaciones perimetrales base de la tabla EIGRP que rigen el enrutamiento cruzado.",
+                                info: "<strong>6.1.2.1 Tipos de Paquetes:</strong><br>- <em>Hello:</em> Descubre y mantiene adyacencias de vecinos (Multicast a `224.0.0.10`).<br>- <em>Update:</em> Envía actualizaciones de rutas parciales y acotadas solo cuando ocurre un cambio.<br>- <em>ACK:</em> Confirma la recepción de Updates, Queries y Replies.<br>- <em>Query:</em> Solicitud de búsqueda de rutas enviada cuando cae un camino sin respaldo.<br>- <em>Reply:</em> Respuesta a una consulta Query enviada por un vecino.",
+                                code: "Router# show ip eigrp traffic"
+                            },
+                            {
+                                id: "6.1.3",
+                                title: "6.1.3 Mensajes de EIGRP",
+                                description: "La forma en que se estructuran los paquetes en el aire.",
+                                info: "<strong>6.1.3.1 Encapsulación EIGRP:</strong> Los mensajes se encapsulan directamente en cabeceras IP (protocolo 88).<br><br><strong>6.1.3.2 Encabezado y TLV:</strong> La carga útil utiliza estructuras modularizadas llamadas *Tipo, Longitud y Valor (TLV)* para transportar datos de rutas y métricas.",
+                                code: "Router# debug eigrp packets"
+                            }
+                        ]
+                    },
+                    {
+                        id: "6.2",
+                        title: "6.2 Configuración de EIGRP para IPv4",
+                        subtopics: [
+                            {
+                                id: "6.2.1",
+                                title: "6.2.1 Configuración de EIGRP con IPv4",
+                                description: "Puesta en funcionamiento de EIGRP requiriendo asociación inquebrantable de sistemas autónomos.",
+                                info: "<strong>6.2.1.1 Sistema Autónomo (ASN):</strong> Todos los routers del dominio deben compartir el mismo número de ASN para establecer adyacencias.<br><br><strong>6.2.1.2 Router ID:</strong> Identificador estático de 32 bits configurado con <code>eigrp router-id [A.B.C.D]</code>.<br><br><strong>6.2.1.3 Comando network y Wildcard:</strong> Define qué interfaces participan en EIGRP usando máscaras de comodín (ej: <code>network 10.1.1.0 0.0.0.255</code>).<br><br><strong>6.2.1.4 Interfaz Pasiva:</strong> El comando <code>passive-interface</code> silencia los envíos Hello en puertos conectados a hosts de usuarios por seguridad.",
+                                code: "Router(config)# router eigrp 10\nRouter(config-router)# eigrp router-id 192.168.1.1\nRouter(config-router)# network 10.1.1.0 0.0.0.255\nRouter(config-router)# passive-interface GigabitEthernet0/0"
+                            },
+                            {
+                                id: "6.2.2",
+                                title: "6.2.2 Verificación de EIGRP con IPv4",
+                                description: "Instrumentación de escrutinio para dictaminar operaciones asimétricas correctas.",
+                                info: "<strong>6.2.2.1 Verificación de Vecinos:</strong> Ejecutar <code>show ip eigrp neighbors</code> para validar adyacencias activas.<br><br><strong>6.2.2.2 Inspección de Protocolos:</strong> El comando <code>show ip protocols</code> valida los valores K, el ASN y las interfaces pasivas.<br><br><strong>6.2.2.3 Tabla de Ruteo:</strong> Confirmada con <code>show ip route eigrp</code>. Las rutas EIGRP se identifican en la tabla con la letra **D** (Distancia Administrativa por defecto: 90).",
+                                code: "Router# show ip eigrp neighbors\nRouter# show ip protocols\nRouter# show ip route eigrp"
+                            }
+                        ]
+                    },
+                    {
+                        id: "6.3",
+                        title: "6.3 Funcionamiento algorítmico EIGRP",
+                        subtopics: [
+                            {
+                                id: "6.3.1",
+                                title: "6.3.1 Descubrimiento de rutas iniciales EIGRP",
+                                description: "La conformación de lazos entre equipos (Adyacencias).",
+                                info: "<strong>6.3.1.1 Adyacencias:</strong> Establecidas al validar coincidencia en el ASN, subredes y valores K de métricas.<br><br><strong>6.3.1.2 Tabla de Topología:</strong> Guarda todas las rutas reportadas por los vecinos en una base de datos unificada.<br><br><strong>6.3.1.3 Convergencia:</strong> DUAL selecciona el mejor camino de la tabla de topología e instala la ruta óptima en la tabla de ruteo IP.",
+                                code: "Router# debug eigrp packets hello"
+                            },
+                            {
+                                id: "6.3.2",
+                                title: "6.3.2 Métricas de EIGRP",
+                                description: "Fórmula matemática que EIGRP aplica al analizar la topografía.",
+                                info: "<strong>6.3.2.1 Métrica Compuesta:</strong> Utiliza el **Ancho de Banda más lento (Bandwidth)** y el **Retraso Acumulado (Delay)** de todo el trayecto.<br><br><strong>6.3.2.2 Fórmula Básica:</strong> Métrica = `[10,000,000 / Bandwidth mínimo en kbps] + [Suma de Delays en decenas de microsegundos] * 256`.",
+                                code: "Router(config)# interface Serial0/0/0\nRouter(config-if)# bandwidth 64\nRouter(config-if)# delay 2000"
+                            },
+                            {
+                                id: "6.3.3",
+                                title: "6.3.3 DUAL y la tabla de topología",
+                                description: "Precomputación del Sucesorio y Rutas Sustitutas para contingencias.",
+                                info: "<strong>6.3.3.1 Conceptos de DUAL:</strong><br>- <em>Sucesor (Successor):</em> La mejor ruta seleccionada para llegar al destino (instalada en la tabla IP).<br>- <em>Distancia Factible (FD):</em> El costo métrico total acumulado de la ruta principal.<br>- <em>Distancia Notificada (RD):</em> La métrica que un vecino reporta que él posee para llegar al destino.<br>- <em>Condición de Factibilidad (FC):</em> Regla estricta que exige que la RD del vecino sea <strong>menor</strong> que la FD actual para garantizar que no haya bucles.<br>- <em>Sucesor Factible (FS):</em> Ruta de respaldo precalculada en memoria que cumple la Condición de Factibilidad.",
+                                code: "Router# show ip eigrp topology"
+                            },
+                            {
+                                id: "6.3.4",
+                                title: "6.3.4 DUAL y convergencia",
+                                description: "La peligrosa máquina de estado atascada Stuck-in-Active (SIA).",
+                                info: "<strong>6.3.4.1 Estados DUAL:</strong> Estado *Pasivo (P)* indica ruta estable y sana. Estado *Activo (A)* indica que la ruta cayó y DUAL está calculando un nuevo camino.<br><br><strong>6.3.4.2 Conmutación con FS:</strong> Si existe un Sucesor Factible en memoria, DUAL lo promueve instantáneamente a Sucesor en milisegundos.<br><br><strong>6.3.4.3 Estado Stuck In Active (SIA):</strong> Si no hay FS, el router envía Queries a todos sus vecinos. Si un vecino no responde el Reply en 3 minutos, la ruta entra en error SIA y se reinicia la adyacencia.",
+                                code: "Router# show ip eigrp topology active"
+                            }
+                        ]
+                    },
+                    {
+                        id: "6.4",
+                        title: "6.4 Configuración de EIGRP para IPv6",
+                        subtopics: [
+                            {
+                                id: "6.4.1",
+                                title: "6.4.1 EIGRP para IPv4 frente a IPv6",
+                                description: "Alineación y diferencias de despliegue entre protocolos lógicos.",
+                                info: "<strong>6.4.1.1 EIGRP para IPv6:</strong> Proceso independiente con la misma métrica y motor DUAL que la versión IPv4.<br><br><strong>6.4.1.2 Transporte IPv6:</strong> Envía paquetes multicast a la IP `FF02::A` y establece adyacencias utilizando exclusivamente las direcciones de enlace local (**Link-Local**, prefijo `FE80::`).",
+                                code: "Router(config)# ipv6 unicast-routing\nRouter(config)# ipv6 router eigrp 10\nRouter(config-rtr)# eigrp router-id 1.1.1.1"
+                            },
+                            {
+                                id: "6.4.2",
+                                title: "6.4.2 Configuración de EIGRP para IPv6",
+                                description: "Procesos detallados de arranque anclados explícitamente en el cable.",
+                                info: "<strong>6.4.2.1 Proceso EIGRP IPv6:</strong> Requiere definir explícitamente un Router-ID de 32 bits (ej. `1.1.1.1`) y encender el proceso con la orden `no shutdown`.<br><br><strong>6.4.2.2 Habilitación en Interfaces:</strong> No utiliza el comando `network`. EIGRPv6 se habilita directamente dentro de cada interfaz mediante `ipv6 eigrp [ASN]`.",
+                                code: "Router(config)# interface GigabitEthernet0/1\nRouter(config-if)# ipv6 eigrp 10"
+                            },
+                            {
+                                id: "6.4.3",
+                                title: "6.4.3 Verificación de EIGRP para IPv6",
+                                description: "Inspección detallada para auditoría de los masivos despliegues de direccionamiento.",
+                                info: "<strong>6.4.3.1 Vecinos IPv6:</strong> El comando <code>show ipv6 eigrp neighbors</code> lista las adyacencias activas identificadas por sus direcciones Link-Local (`FE80::`).<br><br><strong>6.4.3.2 Verificación de Protocolos:</strong> <code>show ipv6 protocols</code> muestra el Router-ID, ASN e interfaces activas.<br><br><strong>6.4.3.3 Tabla de Ruteo IPv6:</strong> El comando <code>show ipv6 route eigrp</code> confirma las rutas aprendidas por DUAL marcadas con la letra **D**.",
+                                code: "Router# show ipv6 eigrp neighbors\nRouter# show ipv6 protocols\nRouter# show ipv6 route eigrp"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        let currentSubtopicId = "1.1.1";
+        let flatSubtopicsList = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            buildFlatSubtopicsList();
+            renderHomePage();
+            renderSidebarTree();
+            setupEventListeners();
+            loadSubtopic(currentSubtopicId);
+        });
+
+        function buildFlatSubtopicsList() {
+            flatSubtopicsList = [];
+            courseData.forEach(unit => {
+                unit.topics.forEach(topic => {
+                    topic.subtopics.forEach(subtopic => {
+                        flatSubtopicsList.push({
+                            unitId: unit.id,
+                            unitTitle: unit.title,
+                            topicTitle: topic.title,
+                            ...subtopic
+                        });
+                    });
+                });
+            });
+        }
+
+        function renderHomePage() {
+            const unitsGrid = document.getElementById("units-grid");
+            unitsGrid.innerHTML = "";
+
+            courseData.forEach((unit) => {
+                let subtopicsCount = 0;
+                unit.topics.forEach(t => subtopicsCount += t.subtopics.length);
+
+                const card = document.createElement("div");
+                card.className = "unit-card";
+                card.innerHTML = `
+                    <div>
+                        <div class="unit-card-header">
+                            <div>
+                                <span class="unit-tag">${unit.number}</span>
+                                <h3 class="unit-card-title">${unit.title}</h3>
+                            </div>
+                        </div>
+                        <p class="unit-card-desc">${unit.description}</p>
+                    </div>
+                    <div class="unit-card-footer">
+                        <span class="unit-topics-count"> ${subtopicsCount} subtemas teóricos</span>
+                        <button class="btn btn-outline btn-enter-unit" data-unit-id="${unit.id}">Entrar →</button>
+                    </div>
+                `;
+                unitsGrid.appendChild(card);
+            });
+
+            document.querySelectorAll(".btn-enter-unit").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const unitId = e.target.getAttribute("data-unit-id");
+                    openUnitDirectly(unitId);
+                });
+            });
+        }
+
+        function openUnitDirectly(unitId) {
+            const unit = courseData.find(u => u.id === unitId);
+            if (unit && unit.topics.length > 0 && unit.topics[0].subtopics.length > 0) {
+                const firstSubtopicId = unit.topics[0].subtopics[0].id;
+                showCourseView();
+                loadSubtopic(firstSubtopicId);
+            }
+        }
+
+        function renderSidebarTree() {
+            const navTree = document.getElementById("course-tree");
+            navTree.innerHTML = "";
+
+            courseData.forEach((unit) => {
+                const unitGroup = document.createElement("div");
+                unitGroup.className = "unit-group";
+
+                const unitTitle = document.createElement("div");
+                unitTitle.className = "unit-group-title";
+                unitTitle.innerText = `${unit.number}: ${unit.title}`;
+                unitGroup.appendChild(unitTitle);
+
+                unit.topics.forEach((topic) => {
+                    const topicContainer = document.createElement("div");
+                    topicContainer.className = "topic-accordion";
+
+                    const accordionBtn = document.createElement("button");
+                    accordionBtn.className = "topic-accordion-btn";
+                    accordionBtn.innerHTML = `<span>${topic.title}</span> <span class="arrow">▼</span>`;
+
+                    const subtopicList = document.createElement("ul");
+                    subtopicList.className = "subtopic-list";
+
+                    accordionBtn.addEventListener("click", () => {
+                        subtopicList.classList.toggle("open");
+                    });
+
+                    topic.subtopics.forEach((sub) => {
+                        const subItem = document.createElement("li");
+                        subItem.className = `subtopic-item ${sub.id === currentSubtopicId ? 'active' : ''}`;
+                        subItem.innerHTML = `<span>${sub.title}</span>`;
+                        subItem.addEventListener("click", () => loadSubtopic(sub.id));
+                        subtopicList.appendChild(subItem);
+                    });
+
+                    topicContainer.appendChild(accordionBtn);
+                    topicContainer.appendChild(subtopicList);
+                    unitGroup.appendChild(topicContainer);
+                });
+
+                navTree.appendChild(unitGroup);
+            });
+        }
+
+        function loadSubtopic(subtopicId) {
+            currentSubtopicId = subtopicId;
+            const item = flatSubtopicsList.find(s => s.id === subtopicId);
+            if (!item) return;
+
+            document.getElementById("breadcrumb").innerText = `${item.unitTitle} > ${item.topicTitle}`;
+            document.getElementById("topic-title").innerText = item.title;
+            document.getElementById("topic-description").innerText = item.description;
+            
+            document.getElementById("topic-info").innerHTML = item.info;
+            document.getElementById("topic-code").innerText = item.code;
+
+            renderSidebarTree();
+            autoExpandActiveSubtopic();
+        }
+
+        function autoExpandActiveSubtopic() {
+            const activeItem = document.querySelector(".subtopic-item.active");
+            if (activeItem) {
+                const parentList = activeItem.closest(".subtopic-list");
+                if (parentList) parentList.classList.add("open");
+            }
+        }
+
+        function showHomeView() {
+            document.getElementById("home-view").className = "view-active";
+            document.getElementById("course-view").className = "view-hidden";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showCourseView() {
+            document.getElementById("home-view").className = "view-hidden";
+            document.getElementById("course-view").className = "view-active";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateTopic(direction) {
+            const currentIndex = flatSubtopicsList.findIndex(s => s.id === currentSubtopicId);
+            if (currentIndex === -1) return;
+
+            let targetIndex = currentIndex + direction;
+            if (targetIndex >= 0 && targetIndex < flatSubtopicsList.length) {
+                loadSubtopic(flatSubtopicsList[targetIndex].id);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function setupEventListeners() {
+            document.getElementById("btn-back-home").addEventListener("click", showHomeView);
+            document.getElementById("btn-view-units").addEventListener("click", () => {
+                document.getElementById("unidades-section").scrollIntoView({ behavior: 'smooth' });
+            });
+            document.getElementById("btn-prev-topic").addEventListener("click", () => navigateTopic(-1));
+            document.getElementById("btn-next-topic").addEventListener("click", () => navigateTopic(1));
+        }
+    </script>
+</body>
+</html>
